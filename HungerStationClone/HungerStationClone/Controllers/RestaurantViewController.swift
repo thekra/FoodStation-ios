@@ -13,13 +13,22 @@ class RestaurantViewController: UIViewController {
     
     @IBOutlet var collectionView: UICollectionView!
     
+    @IBOutlet var cancelFilterButton: UIButton!
+    
+    
     var catArray = ["Arabic","Fast Food","American","Italian","Dessert","Indian"]
 
     var RestaurantsArray: [Restaurant]!
+    var filteredRestaurantsArray: [Restaurant]!
+    
     var isFiltered = false
     var selectedCategory : String!
+    var selectedCateogryIndex : Int!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+     
         testData()
       
     }
@@ -27,6 +36,11 @@ class RestaurantViewController: UIViewController {
     @IBAction func searchButtonTapped(_ sender: Any) {
         navigateToSearchVC()
         
+    }
+    
+    
+    @IBAction func cancelFilterTapped(_ sender: Any) {
+        cancelFilteration()
     }
     
     
@@ -45,6 +59,10 @@ class RestaurantViewController: UIViewController {
         let Shawrmer = Restaurant(name: "Shawrmer", product:sharProduct1 , category: "Arabic",  rating: "4.5", image:  UIImage(named: "shawrmerlogo"))
         
         RestaurantsArray  = [Macdonalds,Shawrmer]
+        filteredRestaurantsArray = RestaurantsArray
+        
+        cancelFilterButton.roundCorners(corners: .allCorners, raduis: 40)
+        cancelFilterButton.backgroundColor = .yellow
     }
 }
 
@@ -54,13 +72,13 @@ extension RestaurantViewController: UITableViewDelegate, UITableViewDataSource {
     
     // MARK: - UITableViewDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return RestaurantsArray.count
+        return filteredRestaurantsArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "RestaurantCell", for: indexPath) as! ResturantsTableViewCell
         
-        let restuarant = RestaurantsArray[indexPath.row]
+        let restuarant = filteredRestaurantsArray[indexPath.row]
         cell.resImage.image = restuarant.image
         cell.resName.text = restuarant.name
         cell.resCategory.text = restuarant.category
@@ -93,16 +111,22 @@ extension RestaurantViewController: UICollectionViewDelegate, UICollectionViewDa
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "categoriesCell", for: indexPath) as! CategoriesCollectionViewCell
         
         
+        
+        
         if isFiltered {
-            cell.cancelFilter.isHidden = false
+            
+            cancelFilterButton.isHidden = false
+            cell.categoryLabel.backgroundColor = .yellow
             if catArray[indexPath.row] != selectedCategory {
                 cell.contentView.isHidden = true
-            
-            }else {
+            } else {
+                
                 cell.contentView.isHidden = false
-
             }
-            
+        } else {
+            cancelFilterButton.isHidden = true
+            cell.contentView.isHidden = false
+            cell.categoryLabel.backgroundColor = .clear
         }
         cell.categoryLabel.text = catArray[indexPath.row]
 
@@ -115,23 +139,37 @@ extension RestaurantViewController: UICollectionViewDelegate, UICollectionViewDa
         let width = UIScreen.main.bounds.size.width
         let height = 30.7
         return CGSize(width: Double(width), height: height)
+        
+        
+        
        }
     
      func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("didSelectItemAt\(indexPath)")
+        
         selectedCategory = catArray[indexPath.row]
-        FilterCatogries(selectedCat: selectedCategory)
-
+        
+        if let index = catArray.firstIndex(of: selectedCategory) {
+            selectedCateogryIndex = index
+            FilterCatogries(selectedCat: selectedCategory, index: index)
+        }
     }
     
 
-    private func FilterCatogries(selectedCat: String){
+    private func FilterCatogries(selectedCat: String, index: Int){
+        
         isFiltered = true
+        collectionView.isScrollEnabled = false
+        catArray.swapAt(index, 0)
+        filteredRestaurantsArray = RestaurantsArray.filter{ $0.category == selectedCat}
+        
+        collectionView.setContentOffset(.zero, animated: false)
         collectionView.reloadData()
-        RestaurantsArray = RestaurantsArray.filter{ $0.category == selectedCat}
         tableView.reloadData()
         
     }
+    
+    
 }
 
 extension RestaurantViewController {
@@ -148,5 +186,18 @@ extension RestaurantViewController {
             print("mom")
         }
     }
+    
+    private func cancelFilteration(){
+        filteredRestaurantsArray = RestaurantsArray
+        catArray.swapAt(selectedCateogryIndex, 0)
+        isFiltered = false
+        collectionView.isScrollEnabled = true
+
+        tableView.reloadData()
+        collectionView.reloadData()
+
+    }
+    
+    
 }
 

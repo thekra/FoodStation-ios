@@ -14,37 +14,28 @@ class SearchViewController: UIViewController {
     
     var RestaurantsArray: [Restaurant]!
     var filteredRestaurant: [Restaurant]!
+    
     var isFiltered = false
   
     override func viewDidLoad() {
         super.viewDidLoad()
+        filteredRestaurant = RestaurantsArray
         searchBar.delegate = self
     }
 
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
 extension SearchViewController : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-       return isFiltered ? filteredRestaurant.count : RestaurantsArray.count
+        return filteredRestaurant.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "RestaurantCell", for: indexPath) as! ResturantsTableViewCell
         
-        let restuarantList = isFiltered ? filteredRestaurant : RestaurantsArray
 
-        let restuarant = restuarantList![indexPath.row]
+        let restuarant = filteredRestaurant![indexPath.row]
         cell.resImage.image = restuarant.image
         cell.resName.text = restuarant.name
         cell.resCategory.text = restuarant.category
@@ -67,8 +58,8 @@ extension SearchViewController: UISearchBarDelegate {
         } else {
             filteredRestaurant = RestaurantsArray.filter{$0.name.localizedCaseInsensitiveContains(searchText)}
         }
-        isFiltered = true
         tableView.reloadData()
+        
         
     }
 }
