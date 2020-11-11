@@ -523,7 +523,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VsM-0E-ujf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1045" y="-613"/>
+            <point key="canvasLocation" x="-778" y="-613"/>
         </scene>
         <!--Orders-->
         <scene sceneID="Imb-b0-hBW">
@@ -640,7 +640,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RVK-Fr-qT1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1046" y="102"/>
+            <point key="canvasLocation" x="-778" y="102"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="eM3-W6-6ie">
@@ -669,7 +669,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3xc-1e-uzR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1046" y="850"/>
+            <point key="canvasLocation" x="-778" y="850"/>
         </scene>
         <!--Item-->
         <scene sceneID="BYV-xg-h08">
@@ -750,6 +750,9 @@
                                 <state key="normal" title="Next">
                                     <color key="titleColor" red="0.34901960780000002" green="0.16078431369999999" blue="0.074509803920000006" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="generateKey:" destination="x0C-ty-ZBV" eventType="touchUpInside" id="cp8-7X-Ig4"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="FDc-Rz-gnG"/>
@@ -765,11 +768,28 @@
                     <navigationItem key="navigationItem" id="cOD-We-Aes"/>
                     <connections>
                         <outlet property="phoneNumber" destination="cDR-bP-Nro" id="crQ-PR-zoa"/>
+                        <segue destination="EdL-7P-eYJ" kind="show" id="Gm4-1a-oC2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RTB-7D-TmM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1991" y="102"/>
+            <point key="canvasLocation" x="-1906" y="102"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="lOl-t8-Nuw">
+            <objects>
+                <viewController id="lMH-b9-iKC" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Yqt-YS-lyu">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="pFU-a5-hcC"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Cu3-PM-dzq"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oGH-Bg-Wpx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2726" y="102"/>
         </scene>
         <!--More View Controller-->
         <scene sceneID="WNe-08-VKX">
@@ -790,15 +810,96 @@
                                     <segue destination="x0C-ty-ZBV" kind="show" id="twN-km-Yju"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CuD-D9-FqP">
+                                <rect key="frame" x="18" y="150" width="56" height="36"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Profile">
+                                    <color key="titleColor" red="0.34901960780000002" green="0.16078431369999999" blue="0.074509803920000006" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <segue destination="lMH-b9-iKC" kind="show" id="gmb-BH-hMx"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="HW0-xK-wHI"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <tabBarItem key="tabBarItem" systemItem="more" id="BvQ-pR-zzq"/>
+                    <connections>
+                        <outlet property="loginButton" destination="toz-sm-zI1" id="6su-xA-1BN"/>
+                        <outlet property="profileButton" destination="CuD-D9-FqP" id="HPM-10-24K"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rSZ-bI-8Kl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1991.3043478260872" y="-613.39285714285711"/>
+            <point key="canvasLocation" x="-2326" y="-613"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="oLo-E1-4he">
+            <objects>
+                <viewController id="EdL-7P-eYJ" customClass="OTPViewController" customModule="HungerStationClone" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="1DE-mq-ZVX">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="17" translatesAutoresizingMaskIntoConstraints="NO" id="bun-qb-wph">
+                                <rect key="frame" x="103" y="398.5" width="208" height="45"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="XXXX" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="og2-g8-zvx">
+                                        <rect key="frame" x="0.0" y="0.0" width="208" height="45"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="208" id="62i-F4-Lgz"/>
+                                            <constraint firstAttribute="height" constant="45" id="oQf-IO-yga"/>
+                                        </constraints>
+                                        <color key="textColor" red="0.34901960780000002" green="0.16078431369999999" blue="0.074509803920000006" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                </subviews>
+                            </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UlQ-ls-b4I">
+                                <rect key="frame" x="0.0" y="763" width="414" height="45"/>
+                                <color key="backgroundColor" red="1" green="0.81960784310000001" blue="0.17254901959999999" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="dvx-HB-eGh"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Next">
+                                    <color key="titleColor" red="0.34901960780000002" green="0.16078431369999999" blue="0.074509803920000006" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="validateKey:" destination="EdL-7P-eYJ" eventType="touchUpInside" id="dS7-1Q-hT6"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter OTP" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ys8-Ni-2f3">
+                                <rect key="frame" x="100" y="316" width="214" height="26.5"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                <color key="textColor" red="0.34901960780000002" green="0.16078431369999999" blue="0.074509803920000006" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="wrJ-sn-Cww"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="ys8-Ni-2f3" firstAttribute="top" secondItem="wrJ-sn-Cww" secondAttribute="top" constant="316" id="1az-aQ-I7w"/>
+                            <constraint firstItem="wrJ-sn-Cww" firstAttribute="bottom" secondItem="UlQ-ls-b4I" secondAttribute="bottom" id="IH9-ZL-LEI"/>
+                            <constraint firstItem="UlQ-ls-b4I" firstAttribute="leading" secondItem="wrJ-sn-Cww" secondAttribute="leading" id="PLt-fF-CXl"/>
+                            <constraint firstItem="ys8-Ni-2f3" firstAttribute="leading" secondItem="wrJ-sn-Cww" secondAttribute="leading" constant="100" id="YiZ-G5-yzM"/>
+                            <constraint firstItem="bun-qb-wph" firstAttribute="centerX" secondItem="1DE-mq-ZVX" secondAttribute="centerX" id="akd-1b-SAh"/>
+                            <constraint firstItem="wrJ-sn-Cww" firstAttribute="trailing" secondItem="ys8-Ni-2f3" secondAttribute="trailing" constant="100" id="nKm-MH-cHc"/>
+                            <constraint firstItem="wrJ-sn-Cww" firstAttribute="trailing" secondItem="UlQ-ls-b4I" secondAttribute="trailing" id="rE2-xb-Xwu"/>
+                            <constraint firstItem="bun-qb-wph" firstAttribute="centerY" secondItem="1DE-mq-ZVX" secondAttribute="centerY" id="wU3-if-Gcp"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="DUj-d5-UTU"/>
+                    <connections>
+                        <outlet property="OTPfield" destination="og2-g8-zvx" id="sWc-hs-zYd"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="75H-xw-snn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1906" y="850"/>
         </scene>
     </scenes>
     <resources>
