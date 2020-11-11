@@ -128,43 +128,32 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="categoriesCell" id="hAM-Gd-w1e" customClass="CategoriesCollectionViewCell" customModule="HungerStationClone" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="5" width="130" height="40"/>
+                                        <rect key="frame" x="0.0" y="5" width="80" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="nM0-nG-iPU">
-                                            <rect key="frame" x="0.0" y="0.0" width="130" height="40"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="80" height="40"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a7g-86-y3j">
-                                                    <rect key="frame" x="15" y="5" width="100" height="30"/>
+                                                    <rect key="frame" x="5" y="5" width="70" height="30"/>
                                                     <color key="backgroundColor" red="0.97254901959999995" green="0.82661464630000003" blue="0.85867936639999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="100" id="pej-JL-a7z"/>
-                                                        <constraint firstAttribute="height" constant="30" id="sD6-jc-e9g"/>
+                                                        <constraint firstAttribute="width" constant="70" id="Pdd-y1-F0a"/>
+                                                        <constraint firstAttribute="height" constant="30" id="rIS-hV-27H"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eCo-sh-DwU">
-                                                    <rect key="frame" x="60" y="10" width="70" height="19"/>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                                    <state key="normal" title="x">
-                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    </state>
-                                                </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="eCo-sh-DwU" firstAttribute="top" secondItem="nM0-nG-iPU" secondAttribute="top" constant="10" id="7Nt-eI-KgX"/>
-                                                <constraint firstItem="eCo-sh-DwU" firstAttribute="leading" secondItem="nM0-nG-iPU" secondAttribute="leading" constant="60" id="MwM-MR-TRA"/>
-                                                <constraint firstAttribute="trailing" secondItem="eCo-sh-DwU" secondAttribute="trailing" id="NG5-B1-GXk"/>
-                                                <constraint firstItem="a7g-86-y3j" firstAttribute="centerX" secondItem="nM0-nG-iPU" secondAttribute="centerX" id="Pvb-0D-bEe"/>
-                                                <constraint firstItem="a7g-86-y3j" firstAttribute="centerY" secondItem="nM0-nG-iPU" secondAttribute="centerY" id="WbI-Nh-azX"/>
-                                                <constraint firstAttribute="bottom" secondItem="eCo-sh-DwU" secondAttribute="bottom" constant="11" id="wnZ-Bx-Y63"/>
+                                                <constraint firstItem="a7g-86-y3j" firstAttribute="centerY" secondItem="nM0-nG-iPU" secondAttribute="centerY" id="UrF-W0-4hQ"/>
+                                                <constraint firstItem="a7g-86-y3j" firstAttribute="centerX" secondItem="nM0-nG-iPU" secondAttribute="centerX" id="Y4Z-vK-ylT"/>
+                                                <constraint firstItem="a7g-86-y3j" firstAttribute="leading" secondItem="nM0-nG-iPU" secondAttribute="leading" constant="5" id="oa3-IA-6Lc"/>
                                             </constraints>
                                         </collectionViewCellContentView>
-                                        <size key="customSize" width="130" height="40"/>
+                                        <size key="customSize" width="80" height="40"/>
                                         <connections>
-                                            <outlet property="cancelFilter" destination="eCo-sh-DwU" id="cin-ms-IgE"/>
                                             <outlet property="categoryLabel" destination="a7g-86-y3j" id="vo0-R5-4jr"/>
                                         </connections>
                                     </collectionViewCell>
@@ -299,15 +288,32 @@
                                     <outlet property="delegate" destination="tVG-BN-qbx" id="pFS-cl-Eff"/>
                                 </connections>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="34c-fJ-hDJ">
+                                <rect key="frame" x="82" y="248" width="20" height="20"/>
+                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="20" id="N8h-Ry-nvt"/>
+                                    <constraint firstAttribute="height" constant="20" id="vMz-LU-W2W"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="x">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="cancelFilterTapped:" destination="tVG-BN-qbx" eventType="touchUpInside" id="ojf-lo-66E"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Ega-ZI-PID"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="Ega-ZI-PID" firstAttribute="bottom" secondItem="PeX-2x-kSM" secondAttribute="bottom" constant="5" id="32X-VA-EaN"/>
                             <constraint firstItem="PeX-2x-kSM" firstAttribute="leading" secondItem="Ega-ZI-PID" secondAttribute="leading" constant="10" id="EFv-3U-AIR"/>
+                            <constraint firstItem="34c-fJ-hDJ" firstAttribute="leading" secondItem="Ega-ZI-PID" secondAttribute="leading" constant="82" id="NB1-Ge-8bf"/>
                             <constraint firstItem="Ega-ZI-PID" firstAttribute="trailing" secondItem="PeX-2x-kSM" secondAttribute="trailing" constant="10" id="PhG-en-RFV"/>
                             <constraint firstItem="PeX-2x-kSM" firstAttribute="top" secondItem="Cs3-4n-z5P" secondAttribute="bottom" constant="10" id="Yor-1Y-e2A"/>
                             <constraint firstItem="Cs3-4n-z5P" firstAttribute="leading" secondItem="Ega-ZI-PID" secondAttribute="leading" id="bAN-v4-fmE"/>
+                            <constraint firstItem="34c-fJ-hDJ" firstAttribute="top" secondItem="Ega-ZI-PID" secondAttribute="top" constant="160" id="fBz-wD-3by"/>
                             <constraint firstItem="Cs3-4n-z5P" firstAttribute="top" secondItem="Ega-ZI-PID" secondAttribute="top" constant="145" id="hXa-jZ-yfP"/>
                             <constraint firstItem="Cs3-4n-z5P" firstAttribute="trailing" secondItem="Ega-ZI-PID" secondAttribute="trailing" id="s3x-Fy-tCl"/>
                         </constraints>
@@ -325,6 +331,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="cancelFilterButton" destination="34c-fJ-hDJ" id="Tu2-bX-BeP"/>
                         <outlet property="collectionView" destination="Cs3-4n-z5P" id="fRG-yq-dmI"/>
                         <outlet property="tableView" destination="PeX-2x-kSM" id="7cv-jb-oEf"/>
                         <segue destination="tiF-22-gFH" kind="show" identifier="searchVC" id="6O1-1h-tgm"/>
@@ -805,6 +812,9 @@
         </systemColor>
         <systemColor name="systemIndigoColor">
             <color red="0.34509803921568627" green="0.33725490196078434" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemYellowColor">
+            <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

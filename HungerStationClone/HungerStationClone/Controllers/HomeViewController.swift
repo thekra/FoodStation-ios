@@ -35,6 +35,13 @@ extension HomeViewController {
         let backgroundColor = UIColor(patternImage: resBackgroundImage!)
         resturantView.backgroundColor = backgroundColor
         
+        let gradientLayer:CAGradientLayer = CAGradientLayer()
+         gradientLayer.frame.size = self.resturantView.frame.size
+         gradientLayer.cornerRadius = 10
+         gradientLayer.colors =
+            [UIColor.clear.cgColor,UIColor.black.withAlphaComponent(1).cgColor]
+        //Use diffrent colors
+        resturantView.layer.insertSublayer(gradientLayer, at: 0)
         resturantView.allRoundedConrners()
         locationsLabel.roundCorners(corners: [.allCorners],raduis: 10)
     }
