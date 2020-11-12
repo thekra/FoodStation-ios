@@ -96,6 +96,10 @@ extension RestaurantViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let menuVC = self.storyboard?.instantiateViewController(withIdentifier: "MenuVC") as! MenuViewController
+        menuVC.modalPresentationStyle = .fullScreen
+        self.present(menuVC, animated: true, completion: nil)
 
     }
 }
