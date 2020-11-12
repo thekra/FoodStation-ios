@@ -3,7 +3,7 @@
 //  HungerStationClone
 //
 //  Created by Gaida  on 08/11/2020.
-//
+//rrt
 
 import UIKit
 
@@ -18,12 +18,14 @@ class RestaurantViewController: UIViewController {
     
     var catArray = ["Arabic","Fast Food","American","Italian","Dessert","Indian"]
 
-    var RestaurantsArray: [Restaurant]!
-    var filteredRestaurantsArray: [Restaurant]!
+     var filteredCat : [String] = []
+     var RestaurantsArray: [Restaurant]!
+     var filteredRestaurantsArray: [Restaurant]!
     
     var isFiltered = false
     var selectedCategory : String!
     var selectedCateogryIndex : Int!
+    
     
     
     override func viewDidLoad() {
@@ -48,21 +50,22 @@ class RestaurantViewController: UIViewController {
         // MARK:- Test Data
         
         let macProduct = Products(id: "1", name: "mac chicken", price: 23.5, description: "chicken and mayo", category: "meal")
-        
-        let Macdonalds = Restaurant(name: "Mac",
-                                    product: macProduct,
-                                    category: "Fast Food",
-                                    rating: "3.5", image: UIImage(named: "macLogo"))
-        
-        let sharProduct1 = Products(id: "1", name: "shawrma", price: 22.5, description: "chicken wrap", category: "meal")
-        
-        let Shawrmer = Restaurant(name: "Shawrmer", product:sharProduct1 , category: "Arabic",  rating: "4.5", image:  UIImage(named: "shawrmerlogo"))
-        
-        RestaurantsArray  = [Macdonalds,Shawrmer]
-        filteredRestaurantsArray = RestaurantsArray
-        
-        cancelFilterButton.roundCorners(corners: .allCorners, raduis: 40)
-        cancelFilterButton.backgroundColor = .yellow
+               
+               let Macdonalds = Restaurant(name: "Mac",
+                                           product: macProduct,
+                                           category: "Fast Food",
+                                           rating: "3.5", image: UIImage(named: "macLogo"))
+               
+               let sharProduct1 = Products(id: "1", name: "shawrma", price: 22.5, description: "chicken wrap", category: "meal")
+               
+               let Shawrmer = Restaurant(name: "Shawrmer", product:sharProduct1 , category: "Arabic",  rating: "4.5", image:  UIImage(named: "shawrmerlogo"))
+               
+               RestaurantsArray  = [Macdonalds,Shawrmer]
+               filteredRestaurantsArray = RestaurantsArray
+               filteredCat = catArray
+               
+               cancelFilterButton.roundCorners(corners: .allCorners, raduis: 40)
+               cancelFilterButton.backgroundColor = .yellow
     }
 }
 
@@ -96,6 +99,10 @@ extension RestaurantViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let menuVC = self.storyboard?.instantiateViewController(withIdentifier: "MenuVC") as! MenuViewController
+        menuVC.modalPresentationStyle = .fullScreen
+        self.present(menuVC, animated: true, completion: nil)
 
     }
 }
@@ -104,33 +111,34 @@ extension RestaurantViewController: UICollectionViewDelegate, UICollectionViewDa
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return catArray.count
+        return filteredCat.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "categoriesCell", for: indexPath) as! CategoriesCollectionViewCell
-        
-        
-        
-        
-        if isFiltered {
-            
-            cancelFilterButton.isHidden = false
-            cell.categoryLabel.backgroundColor = .yellow
-            if catArray[indexPath.row] != selectedCategory {
-                cell.contentView.isHidden = true
-            } else {
                 
-                cell.contentView.isHidden = false
-            }
-        } else {
-            cancelFilterButton.isHidden = true
-            cell.contentView.isHidden = false
-            cell.categoryLabel.backgroundColor = .clear
-        }
-        cell.categoryLabel.text = catArray[indexPath.row]
+                
+                
+                
+                if isFiltered {
+                    
+                    cancelFilterButton.isHidden = false
+                    cell.categoryLabel.backgroundColor = .yellow
+        //            if catArray[indexPath.row] != selectedCategory {
+        //                cell.contentView.isHidden = true
+        //            } else {
+        //
+        //                cell.contentView.isHidden = false
+        //            }
+                } else {
+                    cancelFilterButton.isHidden = true
+        //            cell.contentView.isHidden = false
+                    cell.categoryLabel.backgroundColor = .clear
+                }
+                
+                cell.categoryLabel.text = filteredCat[indexPath.row]
 
-        return cell
+                return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -147,23 +155,25 @@ extension RestaurantViewController: UICollectionViewDelegate, UICollectionViewDa
      func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("didSelectItemAt\(indexPath)")
         
-        selectedCategory = catArray[indexPath.row]
-        
-        if let index = catArray.firstIndex(of: selectedCategory) {
-            selectedCateogryIndex = index
-            FilterCatogries(selectedCat: selectedCategory, index: index)
-        }
+        selectedCategory = filteredCat[indexPath.row]
+               
+               if let index = filteredCat.firstIndex(of: selectedCategory) {
+                   selectedCateogryIndex = index
+                   FilterCatogries(selectedCat: selectedCategory, index: index)
+               }
     }
     
 
     private func FilterCatogries(selectedCat: String, index: Int){
         
+        
         isFiltered = true
         collectionView.isScrollEnabled = false
-        catArray.swapAt(index, 0)
+        filteredCat.swapAt(index, 0)
         filteredRestaurantsArray = RestaurantsArray.filter{ $0.category == selectedCat}
         
         collectionView.setContentOffset(.zero, animated: false)
+        filteredCat = filteredCat.filter{ $0 == selectedCat}
         collectionView.reloadData()
         tableView.reloadData()
         
@@ -189,12 +199,13 @@ extension RestaurantViewController {
     
     private func cancelFilteration(){
         filteredRestaurantsArray = RestaurantsArray
-        catArray.swapAt(selectedCateogryIndex, 0)
-        isFiltered = false
-        collectionView.isScrollEnabled = true
+                filteredCat = catArray
+                filteredCat.swapAt(selectedCateogryIndex, 0)
+                isFiltered = false
+                collectionView.isScrollEnabled = true
 
-        tableView.reloadData()
-        collectionView.reloadData()
+                tableView.reloadData()
+                collectionView.reloadData()
 
     }
     
