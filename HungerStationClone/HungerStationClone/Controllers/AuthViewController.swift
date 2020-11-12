@@ -19,11 +19,22 @@ class AuthViewController: UIViewController {
     @IBAction func generateKey(_ sender: UIButton) {
         guard let phoneNum = phoneNumber.text else { return }
         
-        AuthAPI.generateKey(phone: phoneNum) { (GenerateResponse, success) in
-            if success {
-                self.authID = GenerateResponse.authenticationId
-                self.performSegue(withIdentifier: "OTP", sender: nil)
-                print("authID", self.authID)
+//        if isValidPhone(phone: phoneNum) == false {
+//            showAlert(title: "Invalid Input", message: "Phone number must be a vlaid number")
+//
+//        } else {
+            
+            AuthAPI.generateKey(phone: phoneNum) { [weak self] (GenerateResponse, success) in
+                if success {
+                    DispatchQueue.main.async {
+                    self?.authID = GenerateResponse.authenticationId
+                        self?.performSegue(withIdentifier: "OTP", sender: nil)
+                        print("authID", self?.authID)
+                        UserDefaults.standard.set(self?.authID, forKey: "authID")
+                    }
+//                    self.authID = GenerateResponse.authenticationId
+//                    self.performSegue(withIdentifier: "OTP", sender: nil)
+//                    print("authID", self.authID)
             }
         }
     }

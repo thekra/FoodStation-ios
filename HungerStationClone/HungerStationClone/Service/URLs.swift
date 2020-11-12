@@ -12,10 +12,12 @@ struct URLs {
     static let main        = "http://10.20.35.53:5000/api/v1/"
     
     static let generate    = main + "authentication/user/generate/key"
-    
-    static let approveOTP  = main + "authentication/user/validate/key"
-    
+    static let approveOTP  = main + "authentication/user/validate/key/"
     static let verfiyToken = main + "authentication/user/validate/access-token"
+    
+    
+    static let saveLocation = main + "user/update"
+//    static let newOrder = main + "/order/id(resturant)/new"
     
 //    enum endpoints: String {
 //        case generateKey = "authentication/user/generate/key"

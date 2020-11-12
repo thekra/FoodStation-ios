@@ -56,6 +56,16 @@
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gmx-04-aUH" userLabel="secondView">
                                         <rect key="frame" x="0.0" y="199" width="384" height="215"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q3g-b0-pwg">
+                                                <rect key="frame" x="155" y="92" width="74" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" title="New Order"/>
+                                                <connections>
+                                                    <action selector="newOrder:" destination="H8F-Mi-Jkh" eventType="touchUpInside" id="lCL-g8-6EX"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fRd-1R-avt" userLabel="thirdView">
                                         <rect key="frame" x="0.0" y="422" width="384" height="163"/>
@@ -768,7 +778,7 @@
                     <navigationItem key="navigationItem" id="cOD-We-Aes"/>
                     <connections>
                         <outlet property="phoneNumber" destination="cDR-bP-Nro" id="crQ-PR-zoa"/>
-                        <segue destination="EdL-7P-eYJ" kind="show" id="Gm4-1a-oC2"/>
+                        <segue destination="EdL-7P-eYJ" kind="show" identifier="OTP" id="Gm4-1a-oC2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RTB-7D-TmM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

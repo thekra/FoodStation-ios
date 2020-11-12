@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		79097572255C1AC4006EEF44 /* locationAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79097571255C1AC4006EEF44 /* locationAPI.swift */; };
+		79097575255C1B58006EEF44 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79097574255C1B58006EEF44 /* Location.swift */; };
+		79097578255C4B38006EEF44 /* OrderAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79097577255C4B37006EEF44 /* OrderAPI.swift */; };
 		79098ECD255935CC00041B54 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79098ECC255935CC00041B54 /* MapViewController.swift */; };
 		79098ED0255935FD00041B54 /* Map.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 79098ECF255935FD00041B54 /* Map.storyboard */; };
 		797D3558255AB16E00B4E7DB /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797D3557255AB16E00B4E7DB /* AuthViewController.swift */; };
@@ -34,6 +37,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		79097571255C1AC4006EEF44 /* locationAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = locationAPI.swift; sourceTree = "<group>"; };
+		79097574255C1B58006EEF44 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		79097577255C4B37006EEF44 /* OrderAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderAPI.swift; sourceTree = "<group>"; };
 		79098ECC255935CC00041B54 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		79098ECF255935FD00041B54 /* Map.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Map.storyboard; sourceTree = "<group>"; };
 		797D3557255AB16E00B4E7DB /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
@@ -91,6 +97,8 @@
 			children = (
 				797D358F255BD1EB00B4E7DB /* AuthAPI.swift */,
 				797D3596255BD27F00B4E7DB /* URLs.swift */,
+				79097571255C1AC4006EEF44 /* locationAPI.swift */,
+				79097577255C4B37006EEF44 /* OrderAPI.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -108,6 +116,7 @@
 			children = (
 				A72DD21D255967A900ECA6BF /* Restaurant.swift */,
 				797D3593255BD23A00B4E7DB /* LoginStructs.swift */,
+				79097574255C1B58006EEF44 /* Location.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -312,12 +321,15 @@
 				A7C96EF925587429007F9259 /* OrdersViewController.swift in Sources */,
 				A7C96F0525588BD0007F9259 /* RestaurantViewController.swift in Sources */,
 				797D3590255BD1EB00B4E7DB /* AuthAPI.swift in Sources */,
+				79097572255C1AC4006EEF44 /* locationAPI.swift in Sources */,
 				79098ECD255935CC00041B54 /* MapViewController.swift in Sources */,
 				A7C96EDF25586DEC007F9259 /* AppDelegate.swift in Sources */,
 				A72DD21A25595EB300ECA6BF /* CategoriesCollectionViewCell.swift in Sources */,
 				A7C96EFC25587443007F9259 /* MoreViewController.swift in Sources */,
 				A7C96F0D255898AD007F9259 /* ResturantsTableViewCell.swift in Sources */,
+				79097575255C1B58006EEF44 /* Location.swift in Sources */,
 				A72DD2252559BC7B00ECA6BF /* SearchViewController.swift in Sources */,
+				79097578255C4B38006EEF44 /* OrderAPI.swift in Sources */,
 				A7C96F0025587A51007F9259 /* Extension+Layout.swift in Sources */,
 				797D3558255AB16E00B4E7DB /* AuthViewController.swift in Sources */,
 				A7C96EE125586DEC007F9259 /* SceneDelegate.swift in Sources */,

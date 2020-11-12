@@ -6,12 +6,16 @@
 //
 
 import UIKit
+import CoreLocation
 
 class HomeViewController: UIViewController {
     
     
     @IBOutlet var resturantView: UIView!
     @IBOutlet var locationsLabel: UILabel!
+    
+    var locationManager = CLLocationManager()
+    var flag = false
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -20,12 +24,23 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        locationManager.delegate = self
         setUpUI()
         setupRestaurantTap()
         configureLocationLabel()
+        
+    }
+    
+    @IBAction func newOrder(_ sender: UIButton) {
+        OrderAPI.newOrder(name: "5fabcdbbbac0b316c1f82410") { (success) in
+            if success {
+                print("New Order")
+            }
+        }
     }
 }
 
+// MARK: - Additional Functions
 extension HomeViewController {
     
     private func setUpUI() {
@@ -61,7 +76,12 @@ extension HomeViewController {
     
     private func setupRestaurantTap() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(restaurantViewTapped(_:)))
-        resturantView.isUserInteractionEnabled = true
+//        resturantView.isUserInteractionEnabled = true
+        if flag == true {
+            resturantView.isUserInteractionEnabled = true
+        } else {
+            resturantView.isUserInteractionEnabled = false
+        }
         resturantView.addGestureRecognizer(tapGesture)
     }
     
@@ -79,6 +99,23 @@ extension HomeViewController {
             RestaurantViewController.navigationItem.title = locationsLabel.text
         default:
             print("none")
+        }
+    }
+}
+
+// MARK: - Location Permission
+extension HomeViewController: CLLocationManagerDelegate {
+    
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        let locationAuthorization = manager.authorizationStatus
+        switch locationAuthorization {
+        case .authorizedAlways, .authorizedWhenInUse:
+            flag = true
+        case .denied, .notDetermined:
+            showAlert(title: "No Location", message: "Please provide us your location")
+            flag = false
+        default:
+            break
         }
     }
 }
