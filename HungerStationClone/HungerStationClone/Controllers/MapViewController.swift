@@ -69,14 +69,13 @@ class MapViewController: UIViewController {
     @IBAction func chooseButtonTapped(_ sender: UIButton) {
         if chooseButtonFlag {
             setupDoneButton()
-            descriptionView.isHidden = false
         } else {
             setupChooseButton()
             self.dismiss(animated: true, completion: nil)
         }
     }
     
-    @IBAction func saveLocationSwitcher(_ sender: UISwitch) {
+    @IBAction func imagesStackViewSwitcher(_ sender: UISwitch) {
         if sender.isOn {
             imagesStackView.isHidden = false
         } else {
@@ -122,6 +121,7 @@ extension MapViewController: GMSMapViewDelegate {
 // MARK: - Additional Functions
 extension MapViewController {
     func setupDoneButton() {
+        descriptionView.isHidden = false
         chooseButtonFlag = false
         chooseButton.setTitle("Done", for: .normal)
         chooseButton.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
