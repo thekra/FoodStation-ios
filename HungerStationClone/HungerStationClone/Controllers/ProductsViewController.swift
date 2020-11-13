@@ -159,6 +159,7 @@ extension ProductsViewController {
             let menuVC = segue.destination as! MenuViewController
             delegate = menuVC
             product.price = totalPrice
+            menuVC.product = product
             delegate.addToCartFinal(product: product)
 
 

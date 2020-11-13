@@ -16,6 +16,13 @@ class HomeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         locationsLabel.text = UserDefaults.standard.string(forKey: "addressLabel") ?? locationsLabel.text
+        self.navigationController?.navigationBar.barTintColor = .yellow
+
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.navigationController?.navigationBar.barTintColor = .white
+
     }
     
     override func viewDidLoad() {
@@ -25,6 +32,7 @@ class HomeViewController: UIViewController {
         configureLocationLabel()
     }
 }
+
 
 extension HomeViewController {
     
@@ -67,9 +75,7 @@ extension HomeViewController {
     
     @objc func restaurantViewTapped(_ sender : UITapGestureRecognizer){
         performSegue(withIdentifier: "ResVC", sender: nil)
-        //        let storyBoard = UIStoryboard(name: "Main", bundle:nil)
-        //        let RestaurantViewController = storyBoard.instantiateViewController(withIdentifier: "RestaurantVC") as! RestaurantViewController
-        //        self.navigationController?.pushViewController(RestaurantViewController, animated:true)
+     
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

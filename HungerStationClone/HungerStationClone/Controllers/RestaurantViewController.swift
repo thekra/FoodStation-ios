@@ -12,6 +12,7 @@ class RestaurantViewController: UIViewController {
     @IBOutlet var tableView: UITableView!
     
     @IBOutlet var collectionView: UICollectionView!
+    @IBOutlet var offersCollectionView: UICollectionView!
     
     @IBOutlet var cancelFilterButton: UIButton!
     
@@ -26,7 +27,7 @@ class RestaurantViewController: UIViewController {
     var selectedCategory : String!
     var selectedCateogryIndex : Int!
     
-    
+    var offerImages = [UIImage]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,6 +67,11 @@ class RestaurantViewController: UIViewController {
                
                cancelFilterButton.roundCorners(corners: .allCorners, raduis: 40)
                cancelFilterButton.backgroundColor = .yellow
+        
+        offerImages.append(UIImage(named: "offer1")!)
+        offerImages.append(UIImage(named: "offer2")!)
+        offerImages.append(UIImage(named: "offer3")!)
+
     }
 }
 
@@ -111,10 +117,17 @@ extension RestaurantViewController: UICollectionViewDelegate, UICollectionViewDa
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return filteredCat.count
+        if collectionView == self.collectionView {
+            return filteredCat.count
+
+        } else {
+           return offerImages.count
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        if collectionView == self.collectionView {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "categoriesCell", for: indexPath) as! CategoriesCollectionViewCell
                 
                 
@@ -137,8 +150,16 @@ extension RestaurantViewController: UICollectionViewDelegate, UICollectionViewDa
                 }
                 
                 cell.categoryLabel.text = filteredCat[indexPath.row]
-
-                return cell
+            return cell
+        }
+        else  {
+            
+            let cell2 = collectionView.dequeueReusableCell(withReuseIdentifier: "offersCell", for: indexPath as IndexPath) as! OffersCollectionViewCell
+            let img = offerImages[indexPath.row]
+            cell2.offerImage.image = img
+            return cell2
+        }
+             
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -193,7 +214,7 @@ extension RestaurantViewController {
             let searchVC = segue.destination as! SearchViewController
             searchVC.RestaurantsArray = RestaurantsArray
         default:
-            print("mom")
+            print("none")
         }
     }
     

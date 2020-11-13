@@ -9,8 +9,10 @@ import UIKit
 
 class MenuViewController: UIViewController, AddToCartDelegate {
     
+    @IBOutlet var cancelFilterButton: UIButton!
+    
     func addToCartFinal(product: Products) {
-        cart.append(product)
+        MenuViewController.cart.append(product)
     }
     
     let ProductsViewControllerVC = ProductsViewController()
@@ -18,6 +20,16 @@ class MenuViewController: UIViewController, AddToCartDelegate {
     var product: Products!
     var productsPrice: Double = 0.0
     
+    
+    
+    var catArray = ["Arabic","Fast Food","American","Italian","Dessert","Indian"]
+    var filteredCat : [String] = []
+//    var RestaurantsArray: [Restaurant]!
+//    var filteredRestaurantsArray: [Restaurant]!
+    var isFiltered = false
+    var selectedCategory : String!
+    var selectedCateogryIndex : Int!
+   
     
     @IBOutlet weak var menuView: UIView!
     @IBOutlet weak var tableview: UITableView!
@@ -36,19 +48,23 @@ class MenuViewController: UIViewController, AddToCartDelegate {
     }
 
     var menueProduct : [Products] = []
-    var cart = [Products]()
+    static var cart = [Products]()
     
     
     var prodArray = ["Value Meals", "Sandwiches", "Kiddie Meals", "Side Orders", "Desserts", "Special Offer"]
-    var isFiltered = false
-    var selectedCategory: String!
-    
+   
     
     override func viewWillAppear(_ animated: Bool) {
+        print("count \(MenuViewController.cart.count)")
+        if product == nil {
+            print("ohoho empty")
+        } else {
+            print("not empty")
+        }
         if product != nil {
             
 //            cart.append(product)
-            let  currentTotalPrice =  cart.map{ $0.price }.reduce(0.0, +)
+            let  currentTotalPrice =  MenuViewController.cart.map{ $0.price }.reduce(0.0, +)
 //            for p in cart {
 //            productsPrice += p.price
 //            }
@@ -59,8 +75,8 @@ class MenuViewController: UIViewController, AddToCartDelegate {
    
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(cart)
-        print("count \(cart.count)")
+        print(MenuViewController.cart)
+        print("count \(MenuViewController.cart.count)")
         
 //        ProductsViewControllerVC.delegate = self
  
@@ -73,6 +89,12 @@ class MenuViewController: UIViewController, AddToCartDelegate {
         testDate()
     }
     
+    @IBAction func cancelFilterButtonTapped(_ sender: Any) {
+        cancelFilteration()
+
+    }
+    
+    
     func testDate() {
         
         let p1 = Products(id: "1", name: "mac chicken", price: 8.5, description: "chicken and mayo", category: "meal")
@@ -84,6 +106,11 @@ class MenuViewController: UIViewController, AddToCartDelegate {
         menueProduct.append(p3)
 
         addCartView.allRoundedConrners()
+        
+        filteredCat = catArray
+       // filteredRestaurantsArray = RestaurantsArray
+        cancelFilterButton.roundCorners(corners: .allCorners, raduis: 40)
+        cancelFilterButton.backgroundColor = .yellow
     }
     
     @IBAction func dismissTapped(_ sender: Any) {
@@ -136,29 +163,79 @@ extension MenuViewController: UITableViewDataSource {
 extension MenuViewController: UICollectionViewDelegate ,UICollectionViewDataSource , UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        collectionView.deselectItem(at: indexPath, animated: true)
+        
+        selectedCategory = filteredCat[indexPath.row]
+               
+               if let index = filteredCat.firstIndex(of: selectedCategory) {
+                   selectedCateogryIndex = index
+                   FilterCatogries(selectedCat: selectedCategory, index: index)
+               }
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return prodArray.count
+        return filteredCat.count
     }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        
+        let width = UIScreen.main.bounds.size.width
+        let height = 30.7
+        return CGSize(width: Double(width), height: height)
+        
+        
+        
+       }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "categoriesCell", for: indexPath) as! CategoriesCollectionViewCell
+                
+                if isFiltered {
+                    
+                    cancelFilterButton.isHidden = false
+                    cell.categoryLabel.backgroundColor = .yellow
+        //            if catArray[indexPath.row] != selectedCategory {
+        //                cell.contentView.isHidden = true
+        //            } else {
+        //
+        //                cell.contentView.isHidden = false
+        //            }
+                } else {
+                    cancelFilterButton.isHidden = true
+        //            cell.contentView.isHidden = false
+                    cell.categoryLabel.backgroundColor = .clear
+                }
+                
+                cell.categoryLabel.text = filteredCat[indexPath.row]
 
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "prodCell", for: indexPath) as! MenuCategoriesCollectionViewCell
+                return cell
+    }
+    
+    private func FilterCatogries(selectedCat: String, index: Int){
         
         
-        if isFiltered {
-            cell.cancelProductsFilter.isHidden = false
-            if prodArray[indexPath.row] != selectedCategory {
-                cell.contentView.isHidden = true
-            
-            } else {
-                cell.contentView.isHidden = false
-            }
-        }
-        cell.productCatogriesLabel.text = prodArray[indexPath.row]
-        return cell
+        isFiltered = true
+        CollectionView.isScrollEnabled = false
+        filteredCat.swapAt(index, 0)
+//        filteredRestaurantsArray = RestaurantsArray.filter{ $0.category == selectedCat}
+        
+        CollectionView.setContentOffset(.zero, animated: false)
+        filteredCat = filteredCat.filter{ $0 == selectedCat}
+        CollectionView.reloadData()
+       // tableview.reloadData()
+        
+    }
+    
+    private func cancelFilteration(){
+//        filteredRestaurantsArray = RestaurantsArray
+                filteredCat = catArray
+                filteredCat.swapAt(selectedCateogryIndex, 0)
+                isFiltered = false
+        CollectionView.isScrollEnabled = true
+
+        tableview.reloadData()
+        CollectionView.reloadData()
+
     }
     
 //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -169,3 +246,4 @@ extension MenuViewController: UICollectionViewDelegate ,UICollectionViewDataSour
 //        }
 //    }
 }
+
