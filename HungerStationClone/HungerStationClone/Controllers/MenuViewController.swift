@@ -22,7 +22,8 @@ class MenuViewController: UIViewController, AddToCartDelegate {
     
     
     
-    var catArray = ["Arabic","Fast Food","American","Italian","Dessert","Indian"]
+    var catArray = ["Value Meals", "Sandwiches", "Kiddie Meals", "Side Orders", "Desserts", "Special Offer"]
+
     var filteredCat : [String] = []
 //    var RestaurantsArray: [Restaurant]!
 //    var filteredRestaurantsArray: [Restaurant]!
@@ -229,6 +230,7 @@ extension MenuViewController: UICollectionViewDelegate ,UICollectionViewDataSour
     private func cancelFilteration(){
 //        filteredRestaurantsArray = RestaurantsArray
                 filteredCat = catArray
+        
                 filteredCat.swapAt(selectedCateogryIndex, 0)
                 isFiltered = false
         CollectionView.isScrollEnabled = true
@@ -237,6 +239,7 @@ extension MenuViewController: UICollectionViewDelegate ,UICollectionViewDataSour
         CollectionView.reloadData()
 
     }
+    
     
 //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 //        if segue.identifier == "product" {
