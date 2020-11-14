@@ -768,7 +768,7 @@
                     <navigationItem key="navigationItem" id="cOD-We-Aes"/>
                     <connections>
                         <outlet property="phoneNumber" destination="cDR-bP-Nro" id="crQ-PR-zoa"/>
-                        <segue destination="EdL-7P-eYJ" kind="show" id="Gm4-1a-oC2"/>
+                        <segue destination="EdL-7P-eYJ" kind="show" identifier="OTP" id="Gm4-1a-oC2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RTB-7D-TmM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

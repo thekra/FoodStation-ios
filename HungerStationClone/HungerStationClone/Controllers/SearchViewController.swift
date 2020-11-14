@@ -12,8 +12,8 @@ class SearchViewController: UIViewController {
     @IBOutlet var tableView: UITableView!
     @IBOutlet var searchBar: UISearchBar!
     
-    var RestaurantsArray: [Restaurant]!
-    var filteredRestaurant: [Restaurant]!
+    var RestaurantsArray = RestaurantResponse()
+    var filteredRestaurant = RestaurantResponse()
     
     var isFiltered = false
   
@@ -35,14 +35,12 @@ extension SearchViewController : UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "RestaurantCell", for: indexPath) as! ResturantsTableViewCell
         
 
-        let restuarant = filteredRestaurant![indexPath.row]
-        cell.resImage.image = restuarant.image
+        
+        let restuarant = filteredRestaurant[indexPath.row]
         cell.resName.text = restuarant.name
         cell.resCategory.text = restuarant.category
-        cell.resDeliveryCharge.text = restuarant.deliveryCharge
-        cell.resRate.text = restuarant.rating
-        cell.resStatusLabel.text = restuarant.status
-        
+        cell.resDeliveryCharge.text = String(restuarant.deliveryCharge)
+        cell.resRate.text = String(restuarant.rating)
         
         return cell
     }
@@ -53,11 +51,11 @@ extension SearchViewController : UITableViewDelegate, UITableViewDataSource {
 extension SearchViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
       
-        if searchText.isEmpty {
-            filteredRestaurant = RestaurantsArray
-        } else {
-            filteredRestaurant = RestaurantsArray.filter{$0.name.localizedCaseInsensitiveContains(searchText)}
-        }
+//        if searchText.isEmpty {
+//            filteredRestaurant = RestaurantsArray
+//        } else {
+//            filteredRestaurant = RestaurantsArray.filter{$0.name.localizedCaseInsensitiveContains(searchText)}
+//        }
         tableView.reloadData()
         
         

@@ -7,25 +7,30 @@
 
 import UIKit
 
+
 class MenuViewController: UIViewController, AddToCartDelegate {
     
-    func addToCartFinal(product: Products) {
-        cart.append(product)
+    
+    func addProductToCart(product: ProductList) {
+        MenuViewController.cart.append(product)
+        print("func addProductToCart", MenuViewController.cart)
     }
     
+    var selectedRestuarant: RestaurantResponseElement?
+    var restaurantDeleget : RestaurantsDelegate!
+    
     let ProductsViewControllerVC = ProductsViewController()
-    var selectedProduct: Products!
-    var product: Products!
+    var selectedProduct: ProductList!
+
     var productsPrice: Double = 0.0
-    
-    
+    var totalPrice: Double = 0.0
+
     @IBOutlet weak var menuView: UIView!
     @IBOutlet weak var tableview: UITableView!
     @IBOutlet weak var CollectionView: UICollectionView!
     
     
     // Add cart
-    
     @IBOutlet var addCartView: UIView!
     @IBOutlet var totalPriceLabel: UILabel!
     
@@ -35,9 +40,11 @@ class MenuViewController: UIViewController, AddToCartDelegate {
         var price: Double
     }
 
-    var menueProduct : [Products] = []
-    var cart = [Products]()
+    var menueProduct = [ProductList]()
+    static var cart = [ProductList]()
     
+    static var productID = [String]()
+    static var restaurantID = ""
     
     var prodArray = ["Value Meals", "Sandwiches", "Kiddie Meals", "Side Orders", "Desserts", "Special Offer"]
     var isFiltered = false
@@ -45,44 +52,49 @@ class MenuViewController: UIViewController, AddToCartDelegate {
     
     
     override func viewWillAppear(_ animated: Bool) {
-        if product != nil {
-            
-//            cart.append(product)
-            let  currentTotalPrice =  cart.map{ $0.price }.reduce(0.0, +)
-//            for p in cart {
-//            productsPrice += p.price
-//            }
+        
+       // print(cartStore.cart)
+        
+        if selectedProduct != nil {
+////            cart.append(product)
+//            let  currentTotalPrice =  cart.map{ Double($0.price) }.reduce(0.0, +)
+////            for p in cart {
+////            productsPrice += p.price
+////            }
+//            cart = 
             addCartView.isHidden = false
-            totalPriceLabel.text = String(currentTotalPrice)
+            totalPriceLabel.text = String(totalPrice)//String(currentTotalPrice)
         }
+        print(MenuViewController.cart)
+        print("count \(MenuViewController.cart.count)")
     }
    
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(cart)
-        print("count \(cart.count)")
+        print("\n\n\n\n\n\n\ne--------\n\n\n")
+        print(selectedRestuarant)
+        print("\n\n\n\n\n\n\ne--------\n\n\n")
+
+        print(MenuViewController.cart)
+        print("count \(MenuViewController.cart.count)")
         
-//        ProductsViewControllerVC.delegate = self
- 
         tableview.delegate = self
         tableview.dataSource = self
         CollectionView.delegate = self
         CollectionView.dataSource = self
         addCartView.isHidden = true 
         menuView.layer.cornerRadius = 20
-        testDate()
+        loadMenue()
+        setOrderFucntion()
     }
     
-    func testDate() {
+    private func loadMenue() {
         
-        let p1 = Products(id: "1", name: "mac chicken", price: 8.5, description: "chicken and mayo", category: "meal")
-        let p2 =     Products(id: "3", name: "nuggets 9 pieces", price: 12.5, description: "chicken and mayo", category: "chicken")
-        let p3 = Products(id: "2", name: "seazur salad", price: 23.5, description: "sauce", category: "salad")
+        selectedRestuarant?.products.forEach { menueProduct.append($0) }
         
-        menueProduct.append(p1)
-        menueProduct.append(p2)
-        menueProduct.append(p3)
-
+        if let id = selectedRestuarant?.id {
+            MenuViewController.restaurantID = id
+        }
         addCartView.allRoundedConrners()
     }
     
@@ -94,6 +106,7 @@ class MenuViewController: UIViewController, AddToCartDelegate {
 
 // MARK: tableView
 extension MenuViewController: UITableViewDelegate {
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         selectedProduct = menueProduct[indexPath.row]
@@ -101,6 +114,7 @@ extension MenuViewController: UITableViewDelegate {
         let prodVC = self.storyboard?.instantiateViewController(withIdentifier: "prodVC") as! ProductsViewController
         prodVC.modalPresentationStyle = .fullScreen
         prodVC.product = selectedProduct
+     //   prodVC.cartStore = cartStore
         prodVC.delegate = self
         self.present(prodVC, animated: true, completion: nil)
     }
@@ -160,12 +174,32 @@ extension MenuViewController: UICollectionViewDelegate ,UICollectionViewDataSour
         cell.productCatogriesLabel.text = prodArray[indexPath.row]
         return cell
     }
+}
+
+extension MenuViewController: RestaurantsDelegate {
+    func loadResturants(resaurants: RestaurantResponseElement) {
+        selectedRestuarant = resaurants
+    }
+}
+extension MenuViewController {
     
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == "product" {
-//            let prodVC = segue.destination as! ProductsViewController
-//            prodVC.modalPresentationStyle = .fullScreen
-//            prodVC.product = selectedProduct
-//        }
-//    }
+
+    
+    @objc private func sendOrder(_ sender: UITapGestureRecognizer) {
+        MenuViewController.cart.forEach{ MenuViewController.productID.append($0.id)}
+        
+        OrderAPI.newOrder(restaurantID: MenuViewController.restaurantID, productsID: MenuViewController.productID) { (success) in
+            if success {
+                print("HEYYY")
+            }
+        }
+    }
+    
+    private func setOrderFucntion(){
+        
+        let tapAddGesture = UITapGestureRecognizer(target: self, action: #selector(sendOrder(_:)))
+        addCartView.isUserInteractionEnabled = true
+        addCartView.addGestureRecognizer(tapAddGesture)
+        
+    }
 }

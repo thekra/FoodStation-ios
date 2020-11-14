@@ -13,6 +13,9 @@ class MapViewController: UIViewController {
     
     var locationManager = CLLocationManager()
     var chooseButtonFlag = true
+    var lat = 0.0
+    var long = 0.0
+    var chosenAddressName = ""
     
     @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet weak var descriptionView: UIView!
@@ -20,9 +23,17 @@ class MapViewController: UIViewController {
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var imagesStackView: UIStackView!
     
+    // Address names
+    @IBOutlet weak var workAddress: UIImageView!
+    @IBOutlet weak var otherAddress: UIImageView!
+    @IBOutlet weak var homeAddress: UIImageView!
+    @IBOutlet weak var friendAddress: UIImageView!
+    
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupMapView()
+        seupAddressNames()
     }
     
     override func viewDidLoad() {
@@ -69,9 +80,21 @@ class MapViewController: UIViewController {
     @IBAction func chooseButtonTapped(_ sender: UIButton) {
         if chooseButtonFlag {
             setupDoneButton()
+            
         } else {
+            
+            let coor = Coordinates(latitude: self.lat, longitude: self.long)
+            let address = addressLabel.text
+            locationAPI.saveLocation(name: chosenAddressName, coordinates: [coor], streetName: address!) { (User, Success) in
+                if Success {
+                    print("User", User)
+                    DispatchQueue.main.async {
+                        self.dismiss(animated: true, completion: nil)
+                        //setup here
+                    }
+                }
+            }
             setupChooseButton()
-            self.dismiss(animated: true, completion: nil)
         }
     }
     
@@ -91,6 +114,9 @@ extension MapViewController: CLLocationManagerDelegate {
         let location = locations.last
         let lat = location?.coordinate.latitude
         let long = location?.coordinate.longitude
+        
+        self.lat = lat ?? 0
+        self.long = long ?? 0
         
         let camera = GMSCameraPosition.camera(withLatitude: lat!, longitude: long!, zoom: 17)
         self.mapView?.animate(to: camera)
@@ -113,6 +139,10 @@ extension MapViewController: GMSMapViewDelegate {
         chooseButton.alpha = 0.5
         let latitude = mapView.camera.target.latitude
         let longitude = mapView.camera.target.longitude
+        
+        self.lat = latitude
+        self.long = longitude
+        
         print("latitude", latitude)
         print("longitude", longitude)
     }
@@ -125,13 +155,51 @@ extension MapViewController {
         chooseButtonFlag = false
         chooseButton.setTitle("Done", for: .normal)
         chooseButton.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        UserDefaults.standard.set(addressLabel.text, forKey: "addressLabel")
     }
     
     func setupChooseButton() {
         descriptionView.isHidden = true
         chooseButtonFlag = true
         chooseButton.setTitle("Choose", for: .normal)
-        UserDefaults.standard.set(addressLabel.text, forKey: "addressLabel")
         chooseButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+    }
+}
+
+//MARK: - handle the address save name
+extension MapViewController{
+    
+    private func seupAddressNames(){
+        let addressNames = [workAddress,
+                            otherAddress,
+                            homeAddress,
+                            friendAddress]
+       
+        addressNames.forEach {
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(pickAddressName(_:)))
+            $0?.isUserInteractionEnabled = true
+            $0?.addGestureRecognizer(tapGesture)
+        }
+    }
+    
+    @objc  func pickAddressName(_ sender: UITapGestureRecognizer) {
+        
+        if let image = sender.view as? UIImageView {
+            switch image.tag {
+            case 0:
+                chosenAddressName = "Home"
+               
+            case 1:
+                chosenAddressName = "Work"
+                
+            case 2:
+                chosenAddressName = "Friend"
+               
+            case 3 :
+                chosenAddressName = "Others"
+            default:
+                print("errro")
+            }
+        }
     }
 }
