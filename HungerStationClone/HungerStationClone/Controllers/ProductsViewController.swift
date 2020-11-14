@@ -7,12 +7,11 @@
 
 import UIKit
 
-protocol AddToCartDelegate {
-    func addToCartFinal(product: Products)
-}
+
 
 class ProductsViewController: UIViewController {
 
+//
     
     @IBOutlet var AddView: UIView!
     @IBOutlet var decreaseButton: UIButton!
@@ -25,7 +24,8 @@ class ProductsViewController: UIViewController {
     @IBOutlet weak var lablecount: UILabel!
     
     var delegate: AddToCartDelegate!
-    var product : Products!
+    var product : ProductList!
+    var cart = [ProductList]()
     
     var selectedProductPrice : Double = 0.0
     var totalPrice = 0.0
@@ -60,16 +60,15 @@ class ProductsViewController: UIViewController {
     private func calculateTotalPrice(senderTag: Int){
         
         let productPrice = product.price
-        
         switch senderTag {
         case 0:
             quantity -= 1
-            totalPrice = productPrice * quantity
-            
+            totalPrice = Double(productPrice) * quantity
+
         case 1:
             quantity += 1
-            totalPrice = productPrice * quantity
-            
+            totalPrice = Double(productPrice) * quantity
+
         default:
             print("error")
         }
@@ -158,8 +157,8 @@ extension ProductsViewController {
 
             let menuVC = segue.destination as! MenuViewController
             delegate = menuVC
-            product.price = totalPrice
-            delegate.addToCartFinal(product: product)
+//            product.price = totalPrice
+//            delegate.addToCartFinal(product: product)
 
 
           //  menuVC.cart.append(product)
@@ -170,35 +169,25 @@ extension ProductsViewController {
     
   
     @objc func addToCart(_ sender: UITapGestureRecognizer) {
-//        performSegue(withIdentifier: "sendProduct", sender: nil)
+
         let menuVC = storyboard?.instantiateViewController(identifier: "MenuVC") as! MenuViewController
         delegate = menuVC
-        product.price = totalPrice
-        menuVC.product = product
-        delegate.addToCartFinal(product: product)
+        delegate.addProductToCart(product: product)
         
+      //  cart.append(product)
+      //        cartStore.addProductInCart(product: product)
+        
+       // menuVC.cart = cart
+        menuVC.totalPrice = totalPrice
+
         dismiss(animated: true, completion: nil)
-//        var selectedProduct = product
-//        selectedProduct?.price = totalPrice
-//        menuVC.product = selectedProduct!
-//      //  menuVC.cart.append(selectedProduct!)
-      // present(menuVC, animated: true, completion: nil)
-
-        
-       // delegate = menuVC
-       // delegate.addToCartFinal(product: product)
-//            menuVC.cart.append(product)
-      //      menuVC.totalPriceLabel.text = String(totalPrice)
-     
-      //  menuVC.cart.append(product)
-          //  menuVC.modalPresentationStyle = .fullScreen
-
-
-//            menuVC.addCartView.isHidden = false
     }
     
     func setupUI() {
+        productLable.text = product.name
+
         AddView.allRoundedConrners()
+        
         AddView.isUserInteractionEnabled = true
         decreaseButton.roundCorners(corners: .allCorners, raduis: 30)
         increaseButton.roundCorners(corners: .allCorners, raduis: 30)

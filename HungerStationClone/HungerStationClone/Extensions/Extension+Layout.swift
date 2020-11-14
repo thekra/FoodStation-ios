@@ -61,6 +61,19 @@ extension UIViewController {
         let viewController = storyBoard.instantiateViewController(withIdentifier: id)
         push.pushViewController(viewController, animated:true)
     }
+    
+    func showAlert(title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    func isValidPhone(phone: String) -> Bool {
+        
+        let phoneRegex = "[^05](5|0|3|6|4|9|1|8|7)([0-9]{7})$"
+        let phoneTest = NSPredicate(format: "SELF MATCHES %@", phoneRegex)
+        return phoneTest.evaluate(with: phone)
+    }
 }
 extension UITableView {
     

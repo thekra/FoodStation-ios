@@ -12,6 +12,12 @@
 		323ACCE1255D8DC80067488C /* ProductsCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323ACCE0255D8DC80067488C /* ProductsCellTableViewCell.swift */; };
 		323ACCE4255D8DD80067488C /* MenuCategoriesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323ACCE3255D8DD80067488C /* MenuCategoriesCollectionViewCell.swift */; };
 		323ACCE7255D8E4F0067488C /* ProductsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323ACCE6255D8E4F0067488C /* ProductsTableViewCell.swift */; };
+		323ACCEE255DA2150067488C /* locationAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323ACCEC255DA2150067488C /* locationAPI.swift */; };
+		323ACCEF255DA2150067488C /* OrderAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323ACCED255DA2150067488C /* OrderAPI.swift */; };
+		323ACCF2255DA2350067488C /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323ACCF1255DA2350067488C /* Location.swift */; };
+		323ACCF5255DA38B0067488C /* RestaurantAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323ACCF4255DA38B0067488C /* RestaurantAPI.swift */; };
+		323ACCF9255DA4460067488C /* RestaurantResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323ACCF8255DA4460067488C /* RestaurantResponse.swift */; };
+		323ACCFE255DC8470067488C /* protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323ACCFD255DC8470067488C /* protocols.swift */; };
 		79098ECD255935CC00041B54 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79098ECC255935CC00041B54 /* MapViewController.swift */; };
 		79098ED0255935FD00041B54 /* Map.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 79098ECF255935FD00041B54 /* Map.storyboard */; };
 		797D3558255AB16E00B4E7DB /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797D3557255AB16E00B4E7DB /* AuthViewController.swift */; };
@@ -44,6 +50,12 @@
 		323ACCE0255D8DC80067488C /* ProductsCellTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductsCellTableViewCell.swift; sourceTree = "<group>"; };
 		323ACCE3255D8DD80067488C /* MenuCategoriesCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuCategoriesCollectionViewCell.swift; sourceTree = "<group>"; };
 		323ACCE6255D8E4F0067488C /* ProductsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductsTableViewCell.swift; sourceTree = "<group>"; };
+		323ACCEC255DA2150067488C /* locationAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = locationAPI.swift; sourceTree = "<group>"; };
+		323ACCED255DA2150067488C /* OrderAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderAPI.swift; sourceTree = "<group>"; };
+		323ACCF1255DA2350067488C /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		323ACCF4255DA38B0067488C /* RestaurantAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantAPI.swift; sourceTree = "<group>"; };
+		323ACCF8255DA4460067488C /* RestaurantResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantResponse.swift; sourceTree = "<group>"; };
+		323ACCFD255DC8470067488C /* protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = protocols.swift; sourceTree = "<group>"; };
 		79098ECC255935CC00041B54 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		79098ECF255935FD00041B54 /* Map.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Map.storyboard; sourceTree = "<group>"; };
 		797D3557255AB16E00B4E7DB /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
@@ -104,6 +116,9 @@
 			children = (
 				797D358F255BD1EB00B4E7DB /* AuthAPI.swift */,
 				797D3596255BD27F00B4E7DB /* URLs.swift */,
+				323ACCEC255DA2150067488C /* locationAPI.swift */,
+				323ACCF4255DA38B0067488C /* RestaurantAPI.swift */,
+				323ACCED255DA2150067488C /* OrderAPI.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -121,6 +136,8 @@
 			children = (
 				A72DD21D255967A900ECA6BF /* Restaurant.swift */,
 				797D3593255BD23A00B4E7DB /* LoginStructs.swift */,
+				323ACCF1255DA2350067488C /* Location.swift */,
+				323ACCF8255DA4460067488C /* RestaurantResponse.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -181,6 +198,7 @@
 			isa = PBXGroup;
 			children = (
 				A7C96EFF25587A51007F9259 /* Extension+Layout.swift */,
+				323ACCFD255DC8470067488C /* protocols.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -321,7 +339,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				797D358C255BD14500B4E7DB /* OTPViewController.swift in Sources */,
+				323ACCF5255DA38B0067488C /* RestaurantAPI.swift in Sources */,
+				323ACCEF255DA2150067488C /* OrderAPI.swift in Sources */,
+				323ACCFE255DC8470067488C /* protocols.swift in Sources */,
 				797D3597255BD27F00B4E7DB /* URLs.swift in Sources */,
+				323ACCEE255DA2150067488C /* locationAPI.swift in Sources */,
+				323ACCF9255DA4460067488C /* RestaurantResponse.swift in Sources */,
 				797D359A255BD6A300B4E7DB /* UserProfileViewController.swift in Sources */,
 				A72DD21E255967A900ECA6BF /* Restaurant.swift in Sources */,
 				323ACCE4255D8DD80067488C /* MenuCategoriesCollectionViewCell.swift in Sources */,
@@ -331,6 +354,7 @@
 				79098ECD255935CC00041B54 /* MapViewController.swift in Sources */,
 				A7C96EDF25586DEC007F9259 /* AppDelegate.swift in Sources */,
 				323ACCDE255D8D790067488C /* ProductsViewController.swift in Sources */,
+				323ACCF2255DA2350067488C /* Location.swift in Sources */,
 				A72DD21A25595EB300ECA6BF /* CategoriesCollectionViewCell.swift in Sources */,
 				A7C96EFC25587443007F9259 /* MoreViewController.swift in Sources */,
 				323ACCDB255D8D650067488C /* MenuViewController.swift in Sources */,
